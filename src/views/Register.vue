@@ -19,14 +19,13 @@
               <h4>Registro</h4>
             </v-card-title>
             <v-form>
-            <v-text-field name="Name" label="Nombre Completo"></v-text-field>
-            <v-text-field name="Mail" label="Correo electrónico" :rules="[rules.required, rules.email]"></v-text-field>
-            <v-text-field  name="Password" label="Contraseña" type="password"></v-text-field>
+            <v-text-field v-model="name" name="Name" label="Nombre Completo"></v-text-field>
+            <v-text-field v-model="email" name="Mail" label="Correo electrónico" :rules="[rules.required, rules.email]"></v-text-field>
+            <v-text-field  v-model="password" name="Password" label="Contraseña" type="password"></v-text-field>
             <!--Boton inicio-->
             <v-card-actions>
-              <v-btn primary large block>Registrate</v-btn>
+              <v-btn primary large block @click="submit()" >Registrate</v-btn>
             </v-card-actions>
-            
             </v-form>
           </v-card>
         </v-container>
@@ -37,6 +36,8 @@
   export default {
     data () {
       return {
+        name: '',
+        password: '',
         email: '',
         rules: {
           required: value => !!value || 'Required.',
@@ -51,6 +52,22 @@
       gologin(){
         this.$router.push({
           path: '/'
+        })
+      },
+      submit(){
+        self = this
+        
+        this.axios.post('',{
+          'Name': this.name,
+          'Email': this.email,
+          'Password': this.password
+        })
+        .then(function(r){
+          self.$router.push({name: '/'});
+        })
+        .catch(function(e){
+          console.log(e)
+          self.validForm = false
         })
       }
     }
