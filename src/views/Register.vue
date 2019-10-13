@@ -55,15 +55,14 @@
         })
       },
       submit(){
-        self = this
-        
-        this.axios.post('',{
-          'Name': this.name,
-          'Email': this.email,
-          'Password': this.password
+        self = this 
+        this.$http.post('/signUp',{
+          'name': this.name,
+          'email': this.email,
+          'password': this.password
         })
         .then(function(r){
-          self.$router.push({name: '/'});
+          self.$router.push({path: '/'});
         })
         .catch(function(e){
           console.log(e)

@@ -8,27 +8,17 @@ import VueAxios from 'vue-axios'
 import '@babel/polyfill'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+  
 
-axios.defaults.baseURL='http//192.168.0.110:300/'
-
-const reqInterceptor = axios.interceptors.request.use(config => {
-  console.log('Request Interceptor', config)
-  config.baseURL='http//192.168.0.110:300/'
-  return config
+const base = axios.create({
+  baseURL: 'http://192.168.0.50:3000/',
+  headers: {
+	  'Access-Control-Allow-Origin': '*',
+	}
 })
 
-/*const resInterceptor = axios.interceptores.response.use(res => {
-  console.log('Responce interceptor', res)
-  return res
-})*/
+Vue.prototype.$http = base
 
-axios.interceptors.request.eject(reqInterceptor)
-//axios.interceptors.response.eject(resInterceptor)
-
-Vue.config.productionTip = false
-
-
-Vue.use(VueAxios,axios)
 new Vue({
   router,
   store,
