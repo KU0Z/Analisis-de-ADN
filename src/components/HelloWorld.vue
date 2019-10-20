@@ -5,10 +5,10 @@
         <v-container fluid>
           <v-row>
             <v-col
-              v-for="n in 9"
+              v-for="n in 2"
               :key="n"
               class="d-flex child-flex"
-              cols="4"
+              cols="6"
             >
               <v-card flat tile class="d-flex">
                 <v-img
