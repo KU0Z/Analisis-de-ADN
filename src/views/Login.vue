@@ -26,9 +26,14 @@
             </v-card-actions>
             <h4>También puedes iniciar sesión con: </h4>
             <v-card-actions>
-              <v-btn primary large block color="info">Facebook</v-btn>
+              <v-btn primary large block color="info" @click="loginFacebook()">Facebook</v-btn>
             </v-card-actions>
-            <v-facebook-login app-id="966242223397117"></v-facebook-login>
+                <facebook-login class="button"
+                  appId="536085350536644"
+                  @login="onLogin"
+                  @logout="onLogout"
+                  @sdk-loaded="sdkLoaded">
+                </facebook-login>
             <h4>¿No tienes una cuenta aún? </h4>
             <a @click="goregistro()" target="_blank">¡Registrate!</a>
             </v-form>
@@ -38,7 +43,8 @@
     </v-layout>
 </template>
 <script>
-import VFacebookLogin from 'vue-facebook-login-component'
+import Vue from 'vue';
+import facebookLogin from 'facebook-login-vuejs';
   export default{
     
     data () {
@@ -54,15 +60,28 @@ import VFacebookLogin from 'vue-facebook-login-component'
         },
       }
     },
-    components: {
-      VFacebookLogin
+     created() {
     },
+    components: { facebookLogin},
     computed: {},
     methods: {
       goregistro(){
         this.$router.push({
           path: '/register'
         })
+      },
+      loginFacebook(){
+        this.FB.login(function(response) {
+        if (response.authResponse) {
+        console.log(result.authResponse.accessToken);
+        this.FB.api('/me', function(response) {
+          console.log('Good to see you, ' + response.name + '.');
+        });
+        } else {
+        console.log('User cancelled login or did not fully authorize.');
+        }
+    });
+
       },
       login(){
         self = this 
@@ -79,7 +98,30 @@ import VFacebookLogin from 'vue-facebook-login-component'
           console.log(e)
           self.validForm = false
         })
-      }
+      },
+      getUserData() {
+      this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+        userInformation => {
+          console.warn("data api",userInformation)
+          this.personalID = userInformation.id;
+          this.email = userInformation.email;
+          this.name = userInformation.name;
+        }
+      )
+    },
+    sdkLoaded(payload) {
+      this.isConnected = payload.isConnected
+      this.FB = payload.FB
+      if (this.isConnected) this.getUserData()
+    },
+    onLogin() {
+      this.isConnected = true
+      this.getUserData()
+    },
+    onLogout() {
+      this.isConnected = false;
+    }
+      
     }
   }
 </script>
