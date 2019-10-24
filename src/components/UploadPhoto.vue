@@ -12,7 +12,7 @@
         <v-card>
             <v-card-title class="headline">¡Sube tu fotografía!</v-card-title>
             <v-card-actions>
-                <v-btn class="white--text" color="#6200ea" >Cargar desde archivo</v-btn>
+                <v-file-input accept="image/*" label="Cargar desde archivo"></v-file-input>
             </v-card-actions>
             <v-card-actions>
                 <v-btn class="white--text" color="#6200ea">Tomar con dispositivo</v-btn>

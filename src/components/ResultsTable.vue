@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-data-iterator hide-default-footer no-data-text="">
             <template v-slot:header>
-                <v-toolbar class="mb-2" color="#6200ea" dark flat>
+                <v-toolbar class="mb-2" color="#20004d" dark flat>
                     <v-spacer></v-spacer>
                     <v-toolbar-title>Resultados</v-toolbar-title>
                     <v-spacer></v-spacer>
@@ -27,7 +27,7 @@
             </v-simple-table>
         <v-data-iterator hide-default-footer no-data-text="">
             <template  v-slot:header>
-                <v-toolbar class="mt-2" color="#6200ea" dark flat>
+                <v-toolbar class="mt-2" color="#20004d" dark flat>
                     <v-btn color = "#3b1070" style='box-shadow: 5px 3px #20004d'>Compartir en Facebook</v-btn>
                     <v-spacer></v-spacer>
                     <v-toolbar-title>Análisis de ADN - ¿Somos familia?</v-toolbar-title>

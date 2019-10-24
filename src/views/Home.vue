@@ -2,12 +2,12 @@
 <div>
   <Header></Header>
   <div class="row">
-    <div class="column left" style="background-color:#000;">
-      <DNA></DNA>
-    </div>
-    <div class="column right">
+    <div class="column left" style="background-image: radial-gradient(circle, #ba92f0, #ba92f0, #20004d)">
       <HelloWorld></HelloWorld>
       <Loader ></Loader>
+    </div>
+    <div class="column right" style="background-color: #20004d">
+      <DNA></DNA>
     </div>
   </div>  
 </div>
@@ -23,11 +23,12 @@
   float: left;
   padding: 10px;
 }
-.left, {
-  width: 25%;
+.left {
+  width: 82%
 }
+
 .right {
-  width: 75%;
+  width: 18%
 }
 
 /* Clear floats after the columns */
