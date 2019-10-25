@@ -1,15 +1,11 @@
 <template>
-  <v-layout row>
-      <v-img
-          :src="require('../assets/Momo.jpg')"
-          class="my-3"
-        ></v-img>
-      <v-flex xs4 class="grey lighten-4">
+  <v-layout row class="justify-center" style="background-image: linear-gradient(to right, #6200ea, #e94057, #8a2387)">
+      <v-flex xs4 >
         <v-container style="position: relative;" class="text-xs-center">
           <v-card flat>
           <a @click="gologin()" target="_blank">Volver</a>
           <v-img
-            :src="require('../assets/Mr_adn.png')"
+            src="https://media1.giphy.com/media/YlmI36YAWe7KScC7hK/giphy.gif"
             class="my-3"
             contain
             height="200"
@@ -24,8 +20,9 @@
             <v-text-field  v-model="password" name="Password" label="Contraseña" type="password"></v-text-field>
             <!--Boton inicio-->
             <v-card-actions>
-              <v-btn primary large block @click="submit()" >Registrate</v-btn>
+              <v-btn primary large block color="#c2a0f2" @click="submit()" >Registrate</v-btn>
             </v-card-actions>
+            <h1>'</h1>
             </v-form>
           </v-card>
         </v-container>
