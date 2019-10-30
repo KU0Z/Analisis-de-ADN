@@ -45,6 +45,7 @@ import facebookLogin from 'facebook-login-vuejs';
     
     data () {
       return {
+        isConnected: false,
         email: '',
         password: '',
         rules: {
@@ -69,13 +70,23 @@ import facebookLogin from 'facebook-login-vuejs';
       loginFacebook(){
         this.FB.login(function(response) {
         if (response.authResponse) {
-        console.log(result.authResponse.accessToken);
+        console.log(response.authResponse.accessToken);
         this.FB.api('/me', function(response) {
           console.log('Good to see you, ' + response.name + '.');
         });
         } else {
         console.log('User cancelled login or did not fully authorize.');
         }
+        this.$http.post('/facebook',{
+          'access_token': response.authResponse.accessToken
+        })
+        .then(function(r){
+          self.$router.push({path: '/home'});
+        })
+        .catch(function(e){
+          console.log(e)
+          self.validForm = false
+        })
     });
 
       },

@@ -11,7 +11,7 @@ import '@mdi/font/css/materialdesignicons.css'
 const vue_fb = {}
   
 const base = axios.create({
-  baseURL: 'http://192.168.0.50:3000/',
+  baseURL: 'http://192.168.0.23:3000/',
   headers: {
 	  'Access-Control-Allow-Origin': '*',
 	}
