@@ -11,7 +11,7 @@ import '@mdi/font/css/materialdesignicons.css'
 const vue_fb = {}
   
 const base = axios.create({
-  baseURL: 'http://192.168.0.23:3000/',
+  baseURL: 'https://api-adn-analisis.herokuapp.com/',
   headers: {
 	  'Access-Control-Allow-Origin': '*',
 	}
