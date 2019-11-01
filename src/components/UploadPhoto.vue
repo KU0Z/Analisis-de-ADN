@@ -10,27 +10,38 @@
 
     <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
-            <v-card-title class="headline">¡Sube tu fotografía!</v-card-title>
+            <v-card-title class="headline" >¡Sube tu fotografía!</v-card-title>
             <v-card-actions>
-                <v-file-input accept="image/*" label="Cargar desde archivo"></v-file-input>
+                <v-file-input accept="image/*" label="Cargar desde archivo" @click="dialog = false"></v-file-input>
             </v-card-actions>
-            <v-card-actions>
-                <v-btn class="white--text" color="#6200ea">Tomar con dispositivo</v-btn>
-            </v-card-actions>
-            <v-card-actions>
-                <v-btn color="#6200ea" text @click="dialog = false"> Cancelar </v-btn>
-                <v-btn color="#6200ea" text @click="dialog = false"> Aceptar </v-btn>
+            <v-card-actions class="justify-center">
+                <v-btn class="white--text" color="#6200ea" @click="dialog2 = !dialog2">Tomar con dispositivo</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
+    <v-dialog v-model="dialog2" persistent max-width="450">
+      <v-card>
+        <v-card-actions class="justify-center">
+          <Webcam></Webcam>
+        </v-card-actions class="justify-center">
+        <v-card-actions class="justify-center">
+          <v-btn color="#6200ea" text @click="dialog = false; dialog2 = false">Cerrar</v-btn>
+        </v-card-actions class="justify-center">
+      </v-card>
+      </v-dialog>
   </v-row>
 </template>
 
 <script>
+  import Webcam from '../components/Webcam';
   export default {
+    components: {
+      Webcam
+    },
     data () {
       return {
         dialog: false,
+        dialog2: false,
       }
     },
   }
