@@ -55,6 +55,7 @@ import HelloWorld from '../components/HelloWorld';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import DNA from '../components/DNA';
+import Webcam from '../components/Webcam';
 
 
 export default {
@@ -62,7 +63,8 @@ export default {
     HelloWorld,
     Header,
     Loader,
-    DNA
+    DNA,
+    Webcam
   },
 };
 </script>
