@@ -24,12 +24,6 @@
             <v-card-actions>
               <v-btn primary large block color="#c2a0f2" @click="loginFacebook()">Facebook</v-btn>
             </v-card-actions>
-                <facebook-login class="button"
-                  appId="536085350536644"
-                  @login="onLogin"
-                  @logout="onLogout"
-                  @sdk-loaded="sdkLoaded">
-                </facebook-login>
             <h4>¿No tienes una cuenta aún? </h4>
             <a @click="goregistro()" target="_blank">¡Registrate!</a>
             </v-form>
@@ -40,14 +34,14 @@
 </template>
 <script>
 import Vue from 'vue';
-import facebookLogin from 'facebook-login-vuejs';
   export default{
     
     data () {
       return {
         isConnected: false,
-        email: '',
+        email: this.$store.state.email,
         password: '',
+        user: this.$store.state.user,
         rules: {
           required: value => !!value || 'Required.',
           email: value => {
@@ -58,8 +52,9 @@ import facebookLogin from 'facebook-login-vuejs';
       }
     },
      created() {
+       this.getStatus();
     },
-    components: { facebookLogin},
+    components: {},
     computed: {},
     methods: {
       goregistro(){
@@ -68,26 +63,37 @@ import facebookLogin from 'facebook-login-vuejs';
         })
       },
       loginFacebook(){
-        this.FB.login(function(response) {
+        self =this
+        FB.login(function(response) {
         if (response.authResponse) {
         console.log(response.authResponse.accessToken);
-        this.FB.api('/me', function(response) {
-          console.log('Good to see you, ' + response.name + '.');
+        FB.api('/me', function(response) {
+          this.email = response.email;
+          self.$store.state.user = response.name;
+          console.log(self.$store.state.user)
+          self.$router.push({
+          path: '/home'
+        })
         });
         } else {
         console.log('User cancelled login or did not fully authorize.');
         }
-        this.$http.post('/facebook',{
-          'access_token': response.authResponse.accessToken
-        })
-        .then(function(r){
-          self.$router.push({path: '/home'});
-        })
-        .catch(function(e){
-          console.log(e)
-          self.validForm = false
-        })
-    });
+    },{scope: 'public_profile,email'});
+
+      },
+      getStatus(){
+        return new Promise(resolve => {
+               FB.getLoginStatus(responseStatus => {
+                console.log(responseStatus);
+                if (responseStatus.status === 'connected') {   // Logged into your webpage and Facebook.
+                this.$router.push({
+                path: '/home'
+                })
+              } else {                                 // Not logged into your webpage or we are unable to tell.
+
+              }
+              });
+        });
 
       },
       login(){
@@ -107,7 +113,8 @@ import facebookLogin from 'facebook-login-vuejs';
         })
       },
       getUserData() {
-      this.FB.api('/me', 'GET', { fields: 'id,name,email' },
+        
+      FB.api('/me', 'GET', { fields: 'id,name,email' },
         userInformation => {
           console.warn("data api",userInformation)
           this.personalID = userInformation.id;
@@ -118,7 +125,7 @@ import facebookLogin from 'facebook-login-vuejs';
     },
     sdkLoaded(payload) {
       this.isConnected = payload.isConnected
-      this.FB = payload.FB
+      FB = payload.FB
       if (this.isConnected) this.getUserData()
     },
     onLogin() {
