@@ -13,5 +13,16 @@ export default {
   data: () => ({
     //
   }),
+  mounted () {
+   window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '536085350536644',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v5.0'
+      });
+    };
+  }
+  
 };
 </script>
